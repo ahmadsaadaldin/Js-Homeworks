@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script>
+      function disimg() {
+        var area = document.getElementById("country").value;
+        var image = document.getElementById("img1");
+        image.innerHTML =
+          "<img src='" +
+          area +
+          ".jpg' width='30%' height='250px'style='border: 2px solid black'>";
+      }
+    </script>
+  </head>
+  <body>
+    <form action="">
+      <select name="country" id="country" onchange="disimg()">
+        <option value="none">none</option>
+        <option value="Jordan">Jordan</option>
+        <option value="Palestine">Palestine</option>
+        <option value="Syria">Syria</option>
+      </select>
+      <br />
+      <div id="img1"></div>
+    </form>
+  </body>
+</html>
