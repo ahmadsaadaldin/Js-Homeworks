@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net"
+      rel="preconnect"
+      crossorigin="anonymous"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/css/boosted.min.css"
+      rel="stylesheet"
+      integrity="sha384-laZ3JUZ5Ln2YqhfBvadDpNyBo7w5qmWaRnnXuRwNhJeTEFuSdGbzl4ZGHAEnTozR"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/boosted@5.3.3/dist/js/boosted.bundle.min.js"
+      integrity="sha384-3RoJImQ+Yz4jAyP6xW29kJhqJOE3rdjuu9wkNycjCuDnGAtC/crm79mLcwj1w2o/"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <form onsubmit="login(event)">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+        />
+        <div id="emailHelp" class="form-text">
+          We'll never share your email with anyone else.
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input
+          type="password"
+          class="form-control"
+          id="exampleInputPassword1"
+        />
+      </div>
+      <button type="submit" class="btn btn-primary mt-2">Submit</button>
+      <div id="warninglog"></div>
+    </form>
+  </body>
+  <script>
+    function login(event) {
+      event.preventDefault();
+      var localemail = localStorage.getItem("email");
+      var localpassword = localStorage.getItem("pass");
+      var inputemail = document.getElementById("exampleInputEmail1").value;
+      var inputpass = document.getElementById("exampleInputPassword1").value;
+      var username = localStorage.getItem("name");
+      if (localemail == inputemail && localpassword == inputpass) {
+        document.getElementById("warninglog").innerText = "Done";
+        sessionStorage.setItem("name", username);
+        window.location = "./welcome.html";
+      } else
+        document.getElementById("warninglog").innerText =
+          "wrong email or password";
+    }
+  </script>
+</html>
