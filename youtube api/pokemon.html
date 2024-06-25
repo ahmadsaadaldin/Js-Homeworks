@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokédex</title>
+    <style>
+      .container {
+        display: flex;
+        flex-direction: column;
+        background-color: green;
+        width: 100%;
+        height: 100vh;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <form id="search-form" style="padding-top: 10%">
+        <input
+          type="text"
+          id="poke-search"
+          placeholder="Enter Pokémon name or ID"
+        />
+        <button type="submit" id="search">Search</button>
+      </form>
+      <div id="pokemon-container"></div>
+    </div>
+    <script>
+      document
+        .getElementById("search-form")
+        .addEventListener("submit", (event) => {
+          event.preventDefault();
+          const query = document
+            .getElementById("poke-search")
+            .value.toLowerCase();
+          getPokemon(query);
+        });
+
+      function getPokemon(query) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+          .then((response) => response.json())
+          .then((data) => displayPokemon(data))
+          .catch((error) =>
+            console.error("Error fetching Pokémon info:", error)
+          );
+      }
+
+      function displayPokemon(pokemon) {
+        const pokemonContainer = document.getElementById("pokemon-container");
+        pokemonContainer.innerHTML = `
+          <div class="pokemon">
+            <img src="${pokemon.sprites.front_default}" alt="${pokemon.name}">
+            <h3>${capitalizeFirstLetter(pokemon.name)}</h3>
+            <p>Type: ${pokemon.types
+              .map((typeInfo) => capitalizeFirstLetter(typeInfo.type.name))
+              .join(", ")}</p>
+            <p>Height: ${pokemon.height / 10} m</p>
+          </div>
+        `;
+      }
+
+      function capitalizeFirstLetter(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+    </script>
+  </body>
+</html>
